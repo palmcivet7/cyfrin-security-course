@@ -104,8 +104,8 @@ We use the [CodeHawks](https://docs.codehawks.com/hawks-auditors/how-to-evaluate
 
 ## Roles
 
-- Owner: The user who can set and read the password.
-- Outsiders: No one else should be able to set or read the password.
+Owner - Deployer of the protocol, has the power to change the wallet address to which fees are sent through the `changeFeeAddress` function.
+Player - Participant of the raffle, has the power to enter the raffle with the `enterRaffle` function and refund value through `refund` function.
 
 # Executive Summary
 
@@ -128,7 +128,7 @@ I enjoyed reviewing this project and learnt a lot about the process. Thanks, Pat
 
 ### [H-1] Reentrancy attack in `PuppyRaffle::refund()` means all funds can be stolen
 
-**Description:** The `PuppyRaffle::refund` function does nto follow CEI (Checks, Effects, Interactions) and as a result, enables participants to drain the contract balance.
+**Description:** The `PuppyRaffle::refund` function does not follow CEI (Checks, Effects, Interactions) and as a result, enables participants to drain the contract balance.
 
 In the `PuppyRaffle::refund` function, we first make an external call to the `msg.sender` address and only after making that external call do we update the `PuppyRaffle::players` array.
 
